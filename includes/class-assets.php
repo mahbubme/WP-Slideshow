@@ -79,7 +79,7 @@ class Assets {
 
         $scripts = array(
             'wp-slideshow-admin' => array(
-                'src'       => WP_SLIDESHOW_ASSETS . '/js/frontend-slider' . $prefix . '.js',
+                'src'       => WP_SLIDESHOW_ASSETS . '/js/admin' . $prefix . '.js',
                 'version'   => filemtime( WP_SLIDESHOW_PATH . '/assets/js/frontend-slider' . $prefix . '.js' ),
                 'deps'      => array( 'jquery' ),
                 'in_footer' => true
@@ -105,7 +105,7 @@ class Assets {
 
         $styles = array(
             'wp-slideshow-admin' => array(
-                'src'       =>  WP_SLIDESHOW_ASSETS . '/css/frontend-slider' . $prefix . '.css',
+                'src'       =>  WP_SLIDESHOW_ASSETS . '/css/admin' . $prefix . '.css',
             ),
             'wp-slideshow-frontend' => array(
                 'src'       =>  WP_SLIDESHOW_ASSETS . '/css/frontend-slider' . $prefix . '.css',

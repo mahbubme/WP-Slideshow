@@ -6,8 +6,12 @@ namespace WPSlideshow;
  */
 class Admin {
 
+
+
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_menu', array( $this, 'admin_menu_pages' ) );
+
+		add_action( 'admin_menu', array( $this, 'add_settings_sections' ) );
 	}
 
 	/**
@@ -15,16 +19,15 @@ class Admin {
 	 *
 	 * @return void
 	 */
-	public function admin_menu() {
+	public function admin_menu_pages() {
 		global $submenu;
 
 		$capability = wp_slideshow_access_capability();
-		$slug       = 'wp-slideshow-settings';
 
-		$hook = add_menu_page( __( 'WP Slideshow', 'wp-slideshow' ), __( 'WP Slideshow', 'wp-slideshow' ), $capability, $slug, array( $this, 'plugin_page' ), 'dashicons-text' );
+		$hook = add_menu_page( __( 'WP Slideshow', 'wp-slideshow' ), __( 'WP Slideshow', 'wp-slideshow' ), $capability, WP_SLIDESHOW_SLUG, array( $this, 'plugin_page' ), 'dashicons-text' );
 
 		if ( current_user_can( $capability ) ) {
-			$submenu[ $slug ][] = array( __( 'Settings', 'wp-slideshow' ), $capability, 'admin.php?page=' . $slug );
+			$submenu[ WP_SLIDESHOW_SLUG ][] = array( __( 'Slider Settings', 'wp-slideshow' ), $capability, 'admin.php?page=' . WP_SLIDESHOW_SLUG );
 		}
 
 		add_action( 'load-' . $hook, array( $this, 'init_hooks') );
@@ -36,7 +39,7 @@ class Admin {
 	 * @return void
 	 */
 	public function init_hooks() {
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -47,6 +50,7 @@ class Admin {
 	public function enqueue_scripts() {
 		wp_enqueue_style( 'wp-slideshow-admin' );
 		wp_enqueue_script( 'wp-slideshow-admin' );
+		wp_enqueue_script( 'jquery-ui-core' );
 
 		$localize_script = apply_filters( 'wp_slideshow_admin_localized_script', array(
 			'nonce' => wp_create_nonce( 'wp_slideshow_nonce' ),
@@ -63,12 +67,31 @@ class Admin {
 	 * @return void
 	 */
 	public function plugin_page() {
-		?>
-		<div class="error hide-if-js">
-			<p><?php _e( 'WP Slideshow plugin requires JavaScript. Please enable JavaScript from your browser settings.', 'wp-slideshow' ); ?></p>
-		</div>
+		include_once 'pages/settings.php';
+	}
 
-		<?php
-		echo '<div class="wrap"><div id="wp-slideshow-admin-page"></div></div>';
+	/**
+	 * Add setting sections under under slider settings page
+	 *
+	 * @since    1.0.0
+	 */
+	public function add_settings_sections() {
+
+	    add_settings_section(
+			'wp_slideshow_slider_images',
+			__( 'Images', 'wp-slideshow' ),
+			array( $this, 'display_slider_settings' ),
+			WP_SLIDESHOW_SLUG
+		);
+
+	}
+
+	/**
+	 * Displays slider settings
+	 *
+	 * @since    1.0.0
+	 */
+	public function display_slider_settings() {
+	    include_once 'partials/slider-settings.php';
 	}
 }

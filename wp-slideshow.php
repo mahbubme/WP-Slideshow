@@ -50,6 +50,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class WP_Slideshow {
 
     /**
+     * Plugin admin slug
+     *
+     * @var string
+     */
+    public $slug = 'wp-slideshow';
+
+    /**
      * Plugin version
      *
      * @var string
@@ -126,6 +133,7 @@ final class WP_Slideshow {
      * @return void
      */
     public function define_constants() {
+        define( 'WP_SLIDESHOW_SLUG', $this->slug );
         define( 'WP_SLIDESHOW_VERSION', $this->version );
         define( 'WP_SLIDESHOW_FILE', __FILE__ );
         define( 'WP_SLIDESHOW_PATH', dirname( WP_SLIDESHOW_FILE ) );
