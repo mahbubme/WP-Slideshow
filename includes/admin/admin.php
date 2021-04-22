@@ -51,9 +51,11 @@ class Admin {
 		wp_enqueue_style( 'wp-slideshow-admin' );
 		wp_enqueue_script( 'wp-slideshow-admin' );
 		wp_enqueue_script( 'jquery-ui-core' );
+		wp_enqueue_script( 'wp-slideshow-slider-settings' );
 
 		$localize_script = apply_filters( 'wp_slideshow_admin_localized_script', array(
 			'nonce' => wp_create_nonce( 'wp_slideshow_nonce' ),
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
 		) );
 
 		wp_localize_script( 'wp-slideshow-admin', 'wp_slideshow_admin', $localize_script );

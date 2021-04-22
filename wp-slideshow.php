@@ -140,7 +140,7 @@ final class WP_Slideshow {
         define( 'WP_SLIDESHOW_INCLUDES', WP_SLIDESHOW_PATH . '/includes' );
         define( 'WP_SLIDESHOW_URL', plugins_url( '', WP_SLIDESHOW_FILE ) );
         define( 'WP_SLIDESHOW_ASSETS', WP_SLIDESHOW_URL . '/assets' );
-        define( 'WP_SLIDESHOW_OPTION_NAME', 'wp_slideshow_option' );
+        define( 'WP_SLIDESHOW_OPTION_IMAGES', 'wp_slideshow_images' );
     }
 
     /**

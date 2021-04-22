@@ -7,33 +7,27 @@
 ?>
 
 <div class="description" id="wp-slideshow-upload-image-description"><?php echo __( 'add/remove images from the slider.', 'wp-slideshow' ); ?></div>
-<ul id="sortable" class="wp-slideshow-uploaded-images">
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/ivan-bandura-8UU42wLRtaw-unsplash-scaled.jpg" alt="">
-	</li>
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/droneflyernick-8UfHz77ortc-unsplash-scaled.jpg" alt="">
-	</li>
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/gaddafi-rusli-Y93IrZDfxmI-unsplash-scaled.jpg" alt="">
-	</li>
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/sid-verma-vxY7r7iF7as-unsplash-scaled.jpg" alt="">
-	</li>
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/anthony-roberts-82wJ10pX1Fw-unsplash-scaled.jpg" alt="">
-	</li>
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/adi-goldstein-sdtnZ4LgbWk-unsplash-scaled.jpg" alt="">
-	</li>
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/yomex-owo-leScCAsHZcw-unsplash-scaled.jpg" alt="">
-	</li>
-	<li class="ui-state-default">
-		<img src="http://wp.local/wp-content/uploads/2021/03/nick-van-der-ende-SFNxjYJFF9A-unsplash-scaled.jpg" alt="">
-	</li>
-</ul>
-<div class="wp-slideshow-upload-image">
+<?php
+    $slider_images = get_option( WP_SLIDESHOW_OPTION_IMAGES, array() );
+
+    $output  = '<ul id="sortable" class="wp-slideshow-uploaded-images">';
+
+    if ( is_array( $slider_images ) && ! empty( $slider_images ) ) {
+        foreach ( $slider_images as $image ) {
+	        $thumb_url = wp_get_attachment_thumb_url( $image );
+
+	        $output .= '<li class="ui-state-default" data-id="'. wp_kses_post( $image ) .'">';
+	        $output .= '<img src="' . wp_kses_post( $thumb_url ) . '" >';
+	        $output .= '<div class="wp-slideshow-remove-image" data-id="'. wp_kses_post( $image ) .'"><span class="dashicons dashicons-no-alt"></span></div>';
+	        $output .= '</li>';
+        }
+    }
+    $output .= '</ul>';
+
+    echo $output;
+?>
+<!--Don't change the id here, if you do so then make sure to change the id in upload.js file -->
+<div id="wp-slideshow-upload-image" class="wp-slideshow-upload-image">
     <div class="wp-slideshow-upload-image-action">
         <span class="dashicons dashicons-plus-alt"></span><br>
         <span><?php echo __( 'Add Image', 'wp-slideshow' ); ?></span>
