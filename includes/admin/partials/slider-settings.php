@@ -6,7 +6,7 @@
 */
 ?>
 
-<div class="description" id="wp-slideshow-upload-image-description"><?php echo __( 'add/remove images from the slider.', 'wp-slideshow' ); ?></div>
+<div class="description" id="wp-slideshow-upload-image-description"><?php echo __( 'Add/remove images from the slider. Upload high resolution images for better quality.', 'wp-slideshow' ); ?></div>
 <?php
     $slider_images = get_option( WP_SLIDESHOW_OPTION_IMAGES, array() );
 

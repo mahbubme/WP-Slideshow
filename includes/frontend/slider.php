@@ -34,14 +34,41 @@ class Slider {
 	 * @param $atts shortcode attributes
 	 *
 	 * @return void
+	 * @since 1.0.0
 	 */
 	public function render_slider( $atts ) {
-	    $this->enqueue_slideshow_scripts();
-		?>
-        <div class="wp-slideshow-container">
+		$this->enqueue_slideshow_scripts();
 
-        </div>
-		<?php
+		$slider_images = get_option( WP_SLIDESHOW_OPTION_IMAGES, array() );
+
+		$output = '<div class="wp-slideshow-slide-wrap">';
+		$output .= '<div class="wp-slideshow-slide-mask">';
+		$output .= '<ul class="wp-slideshow-slide-group">';
+
+		if ( is_array( $slider_images ) && ! empty( $slider_images ) ) {
+			foreach ( $slider_images as $image_id ) {
+				$image_url = wp_get_attachment_url( $image_id );
+
+				$output .= '<li class="wp-slideshow-slide"><img src="' . wp_kses_post( $image_url ) . '" ></li>';
+			}
+		}
+
+		$output .= '</ul>';
+		$output .= '</div>';
+		$output .= '<div class="wp-slideshow-slide-nav">';
+		$output .= '<ul>';
+
+		if ( is_array( $slider_images ) && ! empty( $slider_images ) ) {
+			foreach ( $slider_images as $image_id ) {
+				$output .= '<li class="wp-slideshow-slide-bullet"></li>';
+			}
+		}
+
+		$output .= '</ul>';
+		$output .= '</div>';
+		$output .= '</div>';
+
+		echo $output;
 	}
 
 	/**
