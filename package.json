@@ -1,0 +1,25 @@
+{
+  "name": "wp-slideshow",
+  "version": "1.0.0",
+  "description": "WordPress plugin for rtCamp",
+  "scripts": {
+    "build": "css-minify -d ./assets/css/ -o ./assets/css/min/ && webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahbubme/WP-Slideshow.git"
+  },
+  "author": "Mahbubur Rahman",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/mahbubme/WP-Slideshow/issues"
+  },
+  "homepage": "https://github.com/mahbubme/WP-Slideshow#readme",
+  "devDependencies": {
+    "css-minify": "^1.1.0",
+    "webpack": "^5.35.0",
+    "webpack-cli": "^4.6.0"
+  },
+  "dependencies": {
+  }
+}
