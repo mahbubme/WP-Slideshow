@@ -3,9 +3,9 @@ jQuery( document ).ready( function ( $ ) {
 		slideGroup = $( '.wp-slideshow-slide-group' ),
 		bullet = $( '.wp-slideshow-slide-bullet' );
 
-	var slidesTotal = slide.length - 1,
-		current = 0,
-		isAutoSliding = true;
+	const slidesTotal = slide.length - 1;
+	let current = 0;
+	let isAutoSliding = true;
 
 	bullet.first().addClass( 'current' );
 
@@ -19,7 +19,7 @@ jQuery( document ).ready( function ( $ ) {
 		updateIndex( slideIndex );
 	};
 
-	var updateIndex = function ( currentSlide ) {
+	const updateIndex = function ( currentSlide ) {
 		if ( isAutoSliding ) {
 			if ( current === slidesTotal ) {
 				current = 0;
@@ -36,7 +36,7 @@ jQuery( document ).ready( function ( $ ) {
 		transition( current );
 	};
 
-	var transition = function ( slidePosition ) {
+	const transition = function ( slidePosition ) {
 		slideGroup.animate( {
 			top: '-' + slidePosition + '00%',
 		} );
@@ -44,5 +44,5 @@ jQuery( document ).ready( function ( $ ) {
 
 	bullet.on( 'click', clickSlide );
 
-	var autoSlide = window.setInterval( updateIndex, 2000 );
+	const autoSlide = window.setInterval( updateIndex, 2000 );
 } );

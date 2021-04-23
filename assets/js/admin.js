@@ -13,43 +13,44 @@ jQuery( document ).ready( function ( $ ) {
 		e.preventDefault();
 
 		const settings = {
-			uploaderTitle: wp_slideshow_admin.text_select_image, // The title of the media upload popup
-			uploaderButton: wp_slideshow_admin.text_add_to_slider, // the text of the button in the media upload popup
+			uploaderTitle: window.wp_slideshow_admin.text_select_image, // The title of the media upload popup
+			uploaderButton: window.wp_slideshow_admin.text_add_to_slider, // the text of the button in the media upload popup
 			multiple: true, // Allow the user to select multiple images
 		};
 
-		const file_frame = ( wp.media.frames.file_frame = wp.media( {
+		const fileFrame = ( wp.media.frames.fileFrame = wp.media( {
 			title: settings.uploaderTitle,
 			button: {
 				text: settings.uploaderButton,
 			},
 			multiple: settings.multiple,
 		} ) );
-		file_frame
+
+		fileFrame
 			.on( 'open', function () {
-				const selection = file_frame.state().get( 'selection' );
-				image_ids = getUploadedIds();
+				const selection = fileFrame.state().get( 'selection' );
+				const imageIds = getUploadedIds();
 
 				// pre-select images which already selected
-				image_ids.forEach( function ( image_id ) {
-					attachment = wp.media.attachment( image_id );
+				imageIds.forEach( function ( imageId ) {
+					const attachment = wp.media.attachment( imageId );
 					attachment.fetch();
 					selection.add( attachment ? [ attachment ] : [] );
 				} );
 			} )
 			.open()
 			.on( 'select', function () {
-				const new_attachments = file_frame.state().get( 'selection' );
+				const newAttachments = fileFrame.state().get( 'selection' );
 
 				// render the selected attachments
-				addToSLider( new_attachments );
+				addToSLider( newAttachments );
 			} );
 	} );
 
 	// When reorder images, update the list
 	$( function () {
 		$( '#sortable' ).sortable( {
-			update( e, u ) {
+			update() {
 				window.WPSlideshowWarningMessage();
 			},
 		} );
@@ -95,11 +96,11 @@ jQuery( document ).ready( function ( $ ) {
 
 	function updateSliderSettings() {
 		$.ajax( {
-			url: wp_slideshow_admin.ajax_url,
+			url: window.wp_slideshow_admin.ajax_url,
 			type: 'POST',
 			data: {
 				action: 'wp_slideshow_update_slider',
-				nonce: wp_slideshow_admin.nonce,
+				nonce: window.wp_slideshow_admin.nonce,
 				images: getUploadedIds(),
 			},
 			success() {
@@ -119,11 +120,11 @@ jQuery( document ).ready( function ( $ ) {
 			`
         <div id="warning-message" class="notice notice-warning is-dismissible">
             <p>` +
-				wp_slideshow_admin.text_update_settings_warning +
+				window.wp_slideshow_admin.text_update_settings_warning +
 				`</p>
             <button type="button" class="notice-dismiss">
                 <span class="screen-reader-text">` +
-				wp_slideshow_admin.text_dismiss_notice +
+				window.wp_slideshow_admin.text_dismiss_notice +
 				`</span>
             </button> 
         </div>`
@@ -138,11 +139,11 @@ jQuery( document ).ready( function ( $ ) {
 			`
         <div id="success-message" class="notice notice-success is-dismissible">
             <p>` +
-				wp_slideshow_admin.text_settings_updated +
+				window.wp_slideshow_admin.text_settings_updated +
 				`</p>
             <button type="button" class="notice-dismiss">
                 <span class="screen-reader-text">` +
-				wp_slideshow_admin.text_dismiss_notice +
+				window.wp_slideshow_admin.text_dismiss_notice +
 				`</span>
             </button>
         </div>`
@@ -157,11 +158,11 @@ jQuery( document ).ready( function ( $ ) {
 			`
         <div id="error-message" class="error is-dismissible">
             <p>` +
-				wp_slideshow_admin.text_settings_cannot_update +
+				window.wp_slideshow_admin.text_settings_cannot_update +
 				`</p>
             <button type="button" class="notice-dismiss">
                 <span class="screen-reader-text">` +
-				wp_slideshow_admin.text_dismiss_notice +
+				window.wp_slideshow_admin.text_dismiss_notice +
 				`</span>
             </button>
         </div>`
