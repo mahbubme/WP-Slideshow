@@ -5,7 +5,8 @@
   "scripts": {
     "build": "css-minify -d ./assets/css/ -o ./assets/css/min/ && webpack",
     "lint:js": "wp-scripts lint-js assets/js/*.js",
-    "lint-fix:js": "wp-scripts lint-js assets/js/*.js --fix"
+    "lint-fix:js": "wp-scripts lint-js assets/js/*.js --fix",
+    "check-engines": "wp-scripts check-engines"
   },
   "repository": {
     "type": "git",
