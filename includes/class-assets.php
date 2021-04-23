@@ -84,12 +84,6 @@ class Assets {
                 'deps'      => array( 'jquery' ),
                 'in_footer' => true
             ),
-            'wp-slideshow-slider-settings' => array(
-	            'src'       => WP_SLIDESHOW_ASSETS . '/js/slider-settings' . $prefix . '.js',
-	            'version'   => filemtime( WP_SLIDESHOW_PATH . '/assets/js/slider-settings' . $prefix . '.js' ),
-	            'deps'      => array( 'jquery' ),
-	            'in_footer' => true
-            ),
             'wp-slideshow-frontend' => array(
                 'src'       => WP_SLIDESHOW_ASSETS . '/js/frontend-slider' . $prefix . '.js',
                 'version'   => filemtime( WP_SLIDESHOW_PATH . '/assets/js/frontend-slider' . $prefix . '.js' ),

@@ -1,5 +1,51 @@
 jQuery( document ).ready(function( $ ) {
 
+    $('#wp-slideshow-submit').on('click', (e) => {
+        e.preventDefault();
+        updateSliderSettings();
+    });
+
+    $('.wp-slideshow-remove-image').on('click', (e) => {
+        removeSliderImage(e);
+    });
+
+    // open media to upload slider images
+    $( '#wp-slideshow-upload-image' ).click( function( e ) {
+        e.preventDefault();
+
+        var settings = {
+            uploaderTitle: wp_slideshow_admin.text_select_image, // The title of the media upload popup
+            uploaderButton: wp_slideshow_admin.text_add_to_slider, // the text of the button in the media upload popup
+            multiple: true, // Allow the user to select multiple images
+        };
+
+        var file_frame = wp.media.frames.file_frame = wp.media({
+            title: settings.uploaderTitle,
+            button: {
+                text: settings.uploaderButton,
+            },
+            multiple: settings.multiple,
+        });
+        file_frame.on( 'open', function() {
+            var selection = file_frame.state().get( 'selection' );
+            image_ids = getUploadedIds();
+
+            // pre-select images which already selected
+            image_ids.forEach( function( image_id ) {
+                attachment = wp.media.attachment( image_id );
+                attachment.fetch();
+                selection.add( attachment ? [ attachment ] : []);
+            });
+        })
+            .open()
+            .on('select', function () {
+                var new_attachments = file_frame.state().get('selection');
+
+                // render the selected attachments
+                addToSLider( new_attachments );
+            });
+    });
+
     // When reorder images, update the list
     $( function() {
         $( '#sortable' ).sortable({
@@ -14,15 +60,62 @@ jQuery( document ).ready(function( $ ) {
         window.WPSlideshowWarningMessage();
     });
 
+    // return array of selected attachment ids
+    function getUploadedIds() {
+        var attachmentIds = [];
+        $( '#sortable > li' ).each( function() {
+            attachmentIds.push( $( this ).attr( 'data-id' ) );
+        });
+        return attachmentIds;
+    }
+
+    // add images to slider
+    function addToSLider( images ) {
+        $( '#sortable' ).empty();
+
+        images.forEach( function( image ) {
+            var img = $( '<img />' ).attr( 'src', image.attributes.sizes.thumbnail.url );
+            var item = `<li class="ui-state-default" data-id="${image.id}">${img[0].outerHTML}<div class="wp-slideshow-remove-image" data-id="${image.id}"><span class="dashicons dashicons-no-alt"></span></div></li>`;
+            $( '#sortable' ).append( item );
+        });
+
+        $('.wp-slideshow-remove-image').on('click', (e) => {
+            removeSliderImage(e);
+        });
+    }
+
+    function removeSliderImage( event ) {
+        $(event.target).parents('li.ui-state-default ').remove();
+        window.WPSlideshowWarningMessage();
+    }
+
+    function updateSliderSettings() {
+        $.ajax({
+            url: wp_slideshow_admin.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'wp_slideshow_update_slider',
+                nonce: wp_slideshow_admin.nonce,
+                images: getUploadedIds()
+            },
+            success: function() {
+                window.WPSlideshowSuccessMessage();
+            },
+            error: function() {
+                window.WPSlideshowErrorMessage();
+            }
+        })
+    }
+
     window.WPSlideshowWarningMessage  = function() {
         $( '#success-message' ).remove();
         $( '#warning-message' ).remove();
         $( '#error-message' ).remove();
         $( '#wp-slideshow-submit' ).after( `
         <div id="warning-message" class="notice notice-warning is-dismissible">
-            <p>Please click on the button to update the settings.</p>
+            <p>` + wp_slideshow_admin.text_update_settings_warning + `</p>
             <button type="button" class="notice-dismiss">
-                <span class="screen-reader-text">Dismiss this notice.</span>
+                <span class="screen-reader-text">` + wp_slideshow_admin.text_dismiss_notice + `</span>
             </button> 
         </div>` );
     }
@@ -33,9 +126,9 @@ jQuery( document ).ready(function( $ ) {
         $( '#error-message' ).remove();
         $( '#wp-slideshow-submit' ).after( `
         <div id="success-message" class="notice notice-success is-dismissible">
-            <p>Settings Updated</p>
+            <p>` + wp_slideshow_admin.text_settings_updated + `</p>
             <button type="button" class="notice-dismiss">
-                <span class="screen-reader-text">Dismiss this notice.</span>
+                <span class="screen-reader-text">` + wp_slideshow_admin.text_dismiss_notice + `</span>
             </button>
         </div>` );
     }
@@ -46,9 +139,9 @@ jQuery( document ).ready(function( $ ) {
         $( '#error-message' ).remove();
         $( '#wp-slideshow-submit' ).after( `
         <div id="error-message" class="error is-dismissible">
-            <p><strong>Error</strong>: Settings Cannot be Updated</p>
+            <p>` + wp_slideshow_admin.text_settings_cannot_update + `</p>
             <button type="button" class="notice-dismiss">
-                <span class="screen-reader-text">Dismiss this notice.</span>
+                <span class="screen-reader-text">` + wp_slideshow_admin.text_dismiss_notice + `</span>
             </button>
         </div>` );
     }

@@ -51,11 +51,16 @@ class Admin {
 		wp_enqueue_style( 'wp-slideshow-admin' );
 		wp_enqueue_script( 'wp-slideshow-admin' );
 		wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script( 'wp-slideshow-slider-settings' );
 
 		$localize_script = apply_filters( 'wp_slideshow_admin_localized_script', array(
-			'nonce' => wp_create_nonce( 'wp_slideshow_nonce' ),
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'nonce'                        => wp_create_nonce( 'wp_slideshow_nonce' ),
+			'ajax_url'                     => admin_url( 'admin-ajax.php' ),
+			'text_select_image'            => __( 'Select or upload image for slider', 'wp-slideshow' ),
+			'text_add_to_slider'           => __( 'Add To Slider', 'wp-slideshow' ),
+			'text_update_settings_warning' => __( 'Please click on the button to update the settings', 'wp-slideshow' ),
+			'text_dismiss_notice'          => __( 'Dismiss this notice', 'wp-slideshow' ),
+			'text_settings_updated'        => __( 'Settings Updated', 'wp-slideshow' ),
+			'text_settings_cannot_update'  => __( 'Error: Settings Cannot be Updated', 'wp-slideshow' ),
 		) );
 
 		wp_localize_script( 'wp-slideshow-admin', 'wp_slideshow_admin', $localize_script );
@@ -73,7 +78,7 @@ class Admin {
 	}
 
 	/**
-	 * Add setting sections under under slider settings page
+	 * Add settings sections under slider settings page
 	 *
 	 * @since    1.0.0
 	 */
