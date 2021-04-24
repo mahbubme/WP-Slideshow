@@ -41,7 +41,7 @@ class Slider {
 
 		$slider_images = get_option( WP_SLIDESHOW_OPTION_IMAGES, array() );
 
-		$output = '<div class="wp-slideshow-slide-wrap">';
+		$output = '<div id="wp-slideshow-slide-wrap" class="wp-slideshow-slide-wrap">';
 		$output .= '<div class="wp-slideshow-slide-mask">';
 		$output .= '<ul class="wp-slideshow-slide-group">';
 
