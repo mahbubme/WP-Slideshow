@@ -1,5 +1,12 @@
 const path = require("path");
 const appEnv = 'production';
+const wpPot = require('wp-pot');
+
+wpPot({
+    destFile: './languages/wp-slideshow.pot',
+    domain: 'wp-slideshow',
+    package: 'wp-slideshow',
+});
 
 module.exports = {
     mode: appEnv,
