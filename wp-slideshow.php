@@ -34,7 +34,7 @@
  * @category            Plugin
  * @copyright           Copyright © 2021 Mahbubur Rahman
  * @author              Mahbubur Rahman
- * @package             WPSlideshow
+ * @package             wp-slideshow
  */
 
 // Exit if accessed directly.
@@ -43,231 +43,258 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WP_Slideshow class
+ * Main plugin class.
  *
- * @class WP_Slideshow The class that holds the entire WP_Slideshow plugin
+ * @class WP_Slideshow The class that holds the entire WP_Slideshow plugin.
+ *
+ * @since 1.0.0
+ *
+ * @package wp-slideshow
+ * @author  Mahbubur Rahman
+ * @access public
  */
 final class WP_Slideshow {
 
-    /**
-     * Plugin admin slug
-     *
-     * @var string
-     */
-    public $slug = 'wp-slideshow';
+	/**
+	 * Plugin admin slug
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public $slug = 'wp-slideshow';
 
-    /**
-     * Plugin version
-     *
-     * @var string
-     */
-    public $version = '1.0.0';
+	/**
+	 * Plugin version
+	 *
+	 * @since 1.0.0
+	 * @var string
+	 */
+	public $version = '1.0.0';
 
-    /**
-     * Holds various class instances
-     *
-     * @var array
-     */
-    private $container = array();
+	/**
+	 * Holds various class instances
+	 *
+	 * @since 1.0.0
+	 * @var array
+	 */
+	private $container = array();
 
-    /**
-     * Constructor for the WP_Slideshow class
-     *
-     * Sets up all the appropriate hooks and actions
-     * within our plugin.
-     */
-    public function __construct() {
-        $this->define_constants();
+	/**
+	 * Constructor for the WP_Slideshow class
+	 *
+	 * Sets up all the appropriate hooks and actions within our plugin.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __construct() {
+		$this->define_constants();
 
-        register_activation_hook( __FILE__, array( $this, 'activate' ) );
-        register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 
-        add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
-    }
+		add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
+	}
 
-    /**
-     * Initializes the WP_Slideshow() class
-     *
-     * Checks for an existing WP_Slideshow() instance
-     * and if it doesn't find one, creates it.
-     */
-    public static function init() {
-        static $instance = false;
+	/**
+	 * Initializes the WP_Slideshow() class
+	 *
+	 * Checks for an existing WP_Slideshow() instance and if it doesn't find one, creates it.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function init() {
+		static $instance = false;
 
-        if ( ! $instance ) {
-            $instance = new WP_Slideshow();
-        }
+		if ( ! $instance ) {
+			$instance = new WP_Slideshow();
+		}
 
-        return $instance;
-    }
+		return $instance;
+	}
 
-    /**
-     * Magic getter to bypass referencing plugin.
-     *
-     * @param $prop
-     *
-     * @return mixed
-     */
-    public function __get( $prop ) {
-        if ( array_key_exists( $prop, $this->container ) ) {
-            return $this->container[ $prop ];
-        }
+	/**
+	 * Magic getter to bypass referencing plugin.
+	 *
+	 * @param string $prop Properties.
+	 *
+	 * @return mixed
+	 * @since 1.0.0
+	 */
+	public function __get( $prop ) {
+		if ( array_key_exists( $prop, $this->container ) ) {
+			return $this->container[ $prop ];
+		}
 
-        return $this->{$prop};
-    }
+		return $this->{$prop};
+	}
 
-    /**
-     * Magic isset to bypass referencing plugin.
-     *
-     * @param $prop
-     *
-     * @return mixed
-     */
-    public function __isset( $prop ) {
-        return isset( $this->{$prop} ) || isset( $this->container[ $prop ] );
-    }
+	/**
+	 * Magic isset to bypass referencing plugin.
+	 *
+	 * @param string $prop Properties.
+	 *
+	 * @return mixed
+	 * @since 1.0.0
+	 */
+	public function __isset( $prop ) {
+		return isset( $this->{$prop} ) || isset( $this->container[ $prop ] );
+	}
 
-    /**
-     * Define the constants
-     *
-     * @return void
-     */
-    public function define_constants() {
-        define( 'WP_SLIDESHOW_SLUG', $this->slug );
-        define( 'WP_SLIDESHOW_VERSION', $this->version );
-        define( 'WP_SLIDESHOW_FILE', __FILE__ );
-        define( 'WP_SLIDESHOW_PATH', dirname( WP_SLIDESHOW_FILE ) );
-        define( 'WP_SLIDESHOW_INCLUDES', WP_SLIDESHOW_PATH . '/includes' );
-        define( 'WP_SLIDESHOW_URL', plugins_url( '', WP_SLIDESHOW_FILE ) );
-        define( 'WP_SLIDESHOW_ASSETS', WP_SLIDESHOW_URL . '/assets' );
-        define( 'WP_SLIDESHOW_OPTION_IMAGES', 'wp_slideshow_images' );
-    }
+	/**
+	 * Define the constants
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function define_constants() {
+		define( 'WP_SLIDESHOW_SLUG', $this->slug );
+		define( 'WP_SLIDESHOW_VERSION', $this->version );
+		define( 'WP_SLIDESHOW_FILE', __FILE__ );
+		define( 'WP_SLIDESHOW_PATH', dirname( WP_SLIDESHOW_FILE ) );
+		define( 'WP_SLIDESHOW_INCLUDES', WP_SLIDESHOW_PATH . '/includes' );
+		define( 'WP_SLIDESHOW_URL', plugins_url( '', WP_SLIDESHOW_FILE ) );
+		define( 'WP_SLIDESHOW_ASSETS', WP_SLIDESHOW_URL . '/assets' );
+		define( 'WP_SLIDESHOW_OPTION_NAME', 'wp_slideshow_options' );
+		define( 'WP_SLIDESHOW_OPTION_IMAGES', 'wp_slideshow_images' );
+	}
 
-    /**
-     * Load the plugin after all plugins are loaded
-     *
-     * @return void
-     */
-    public function init_plugin() {
-        $this->includes();
-        $this->init_hooks();
-    }
+	/**
+	 * Load the plugin after all plugins are loaded
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function init_plugin() {
+		$this->includes();
+		$this->init_hooks();
+	}
 
-    /**
-     * Placeholder for activation function
-     *
-     * Nothing being called here yet.
-     */
-    public function activate() {
-        $installed = get_option( 'wp_slideshow_installed' );
+	/**
+	 * Placeholder for activation function
+	 *
+	 * @since 1.0.0
+	 */
+	public function activate() {
+		$installed = get_option( 'wp_slideshow_installed' );
 
-        if ( ! $installed ) {
-            $this->insert_default_options();
-            update_option( 'wp_slideshow_installed', time() );
-        }
+		if ( ! $installed ) {
+			$this->insert_default_options();
+			update_option( 'wp_slideshow_installed', time() );
+		}
 
-        update_option( 'wp_slideshow_version', WP_SLIDESHOW_VERSION );
-    }
+		update_option( 'wp_slideshow_version', WP_SLIDESHOW_VERSION );
+	}
 
-    public function insert_default_options() {
-        $default_options = array();
+	/**
+	 * Insert plugin default option
+	 *
+	 * @since 1.0.0
+	 */
+	public function insert_default_options() {
+		$default_options = array();
 
-        update_option( WP_SLIDESHOW_OPTION_NAME, $default_options );
-    }
+		update_option( WP_SLIDESHOW_OPTION_NAME, $default_options );
+	}
 
-    /**
-     * Placeholder for deactivation function
-     *
-     * Nothing being called here yet.
-     */
-    public function deactivate() {
-        //
-    }
+	/**
+	 * Placeholder for deactivation function
+	 *
+	 * Nothing being called here yet.
+	 *
+	 * @since 1.0.0
+	 */
+	public function deactivate() {
+	}
 
-    /**
-     * Include the required files
-     *
-     * @return void
-     */
-    public function includes() {
-        // prepare the environment
-        require_once WP_SLIDESHOW_INCLUDES . '/functions.php';
-        require_once WP_SLIDESHOW_INCLUDES . '/class-assets.php';
+	/**
+	 * Include the required files
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function includes() {
+		// prepare the environment.
+		require_once WP_SLIDESHOW_INCLUDES . '/functions.php';
+		require_once WP_SLIDESHOW_INCLUDES . '/class-assets.php';
 
-        if ( $this->is_request( 'admin' ) ) {
-            require_once WP_SLIDESHOW_INCLUDES . '/admin/admin.php';
-        }
+		if ( $this->is_request( 'admin' ) ) {
+			require_once WP_SLIDESHOW_INCLUDES . '/admin/class-admin.php';
+		}
 
-	    if ( $this->is_request( 'frontend' ) || $this->is_request( 'ajax' ) ) {
-		    require_once WP_SLIDESHOW_INCLUDES . '/frontend/slider.php';
-	    }
+		if ( $this->is_request( 'frontend' ) || $this->is_request( 'ajax' ) ) {
+			require_once WP_SLIDESHOW_INCLUDES . '/frontend/class-slider.php';
+		}
 
-        if ( $this->is_request( 'ajax' ) ) {
-            require_once WP_SLIDESHOW_INCLUDES . '/class-ajax.php';
-        }
-    }
+		if ( $this->is_request( 'ajax' ) ) {
+			require_once WP_SLIDESHOW_INCLUDES . '/class-ajax.php';
+		}
+	}
 
-    /**
-     * Initialize the hooks
-     *
-     * @return void
-     */
-    public function init_hooks() {
-        add_action( 'init', array( $this, 'init_classes' ) );
+	/**
+	 * Initialize the hooks
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function init_hooks() {
+		add_action( 'init', array( $this, 'init_classes' ) );
 
-        // Localize our plugin
-        add_action( 'init', array( $this, 'localization_setup' ) );
-    }
+		// Localize our plugin.
+		add_action( 'init', array( $this, 'localization_setup' ) );
+	}
 
-    /**
-     * Instantiate the required classes
-     *
-     * @return void
-     */
-    public function init_classes() {
-        if ( $this->is_request( 'admin' ) ) {
-            $this->container['admin'] = new WPSlideshow\Admin();
-        }
+	/**
+	 * Instantiate the required classes
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function init_classes() {
+		if ( $this->is_request( 'admin' ) ) {
+			$this->container['admin'] = new WPSlideshow\Admin();
+		}
 
-	    if ( $this->is_request( 'frontend' ) || $this->is_request( 'ajax' ) ) {
-		    $this->container['slider'] = new WPSlideshow\Frontend\Slider();
-	    }
+		if ( $this->is_request( 'frontend' ) || $this->is_request( 'ajax' ) ) {
+			$this->container['slider'] = new WPSlideshow\Frontend\Slider();
+		}
 
-        if ( $this->is_request( 'ajax' ) ) {
-            $this->container['ajax'] = new WPSlideshow\Ajax();
-        }
+		if ( $this->is_request( 'ajax' ) ) {
+			$this->container['ajax'] = new WPSlideshow\Ajax();
+		}
 
-	    $this->container['assets'] = new WPSlideshow\Assets();
-    }
+		$this->container['assets'] = new WPSlideshow\Assets();
+	}
 
-    /**
-     * Initialize plugin for localization
-     *
-     * @uses load_plugin_textdomain()
-     */
-    public function localization_setup() {
-        load_plugin_textdomain( 'wp-slideshow', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-    }
+	/**
+	 * Initialize plugin for localization
+	 *
+	 * @uses load_plugin_textdomain()
+	 * @since 1.0.0
+	 */
+	public function localization_setup() {
+		load_plugin_textdomain( 'wp-slideshow', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
 
-    /**
-     * What type of request is this?
-     *
-     * @param  string $type admin, ajax, cron or frontend.
-     *
-     * @return bool
-     */
-    private function is_request( $type ) {
-        switch ( $type ) {
-            case 'admin' :
-                return is_admin();
+	/**
+	 * What type of request is this?
+	 *
+	 * @param   string $type  admin, ajax, cron or frontend.
+	 *
+	 * @return bool
+	 * @since 1.0.0
+	 */
+	private function is_request( $type ) {
+		switch ( $type ) {
+			case 'admin':
+				return is_admin();
 
-            case 'ajax' :
-                return defined( 'DOING_AJAX' );
+			case 'ajax':
+				return defined( 'DOING_AJAX' );
 
-	        case 'frontend':
-		        return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
-        }
-    }
+			case 'frontend':
+				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+	}
 
 } // WP_Slideshow
 
@@ -275,10 +302,11 @@ final class WP_Slideshow {
  * Initialize the plugin
  *
  * @return WP_Slideshow
+ * @since 1.0.0
  */
 function wp_slideshow() {
 	return WP_Slideshow::init();
 }
 
-// kick-off
+// kick-off.
 wp_slideshow();

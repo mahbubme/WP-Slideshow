@@ -103,7 +103,7 @@ jQuery( document ).ready( function ( $ ) {
 			data: {
 				action: 'wp_slideshow_update_slider',
 				nonce: window.wp_slideshow_admin.nonce,
-				images: getUploadedIds(),
+				images: JSON.stringify( getUploadedIds() ),
 			},
 			success() {
 				displayMessage(
