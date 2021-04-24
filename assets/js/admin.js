@@ -51,15 +51,17 @@ jQuery( document ).ready( function ( $ ) {
 	$( function () {
 		$( '#sortable' ).sortable( {
 			update() {
-				window.WPSlideshowWarningMessage();
+				displayMessage(
+					window.wp_slideshow_admin.text_update_settings
+				);
 			},
 		} );
 
-		$( '#wp-slideshow-sortable-images' ).disableSelection();
+		$( '#sortable' ).disableSelection();
 	} );
 
 	$( '#wp-slideshow-upload-image' ).on( 'click', function () {
-		window.WPSlideshowWarningMessage();
+		displayMessage( window.wp_slideshow_admin.text_update_settings );
 	} );
 
 	// return array of selected attachment ids
@@ -91,7 +93,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	function removeSliderImage( event ) {
 		$( event.target ).parents( 'li.ui-state-default ' ).remove();
-		window.WPSlideshowWarningMessage();
+		displayMessage( window.wp_slideshow_admin.text_update_settings );
 	}
 
 	function updateSliderSettings() {
@@ -104,68 +106,28 @@ jQuery( document ).ready( function ( $ ) {
 				images: getUploadedIds(),
 			},
 			success() {
-				window.WPSlideshowSuccessMessage();
+				displayMessage(
+					window.wp_slideshow_admin.text_settings_updated,
+					'success'
+				);
 			},
 			error() {
-				window.WPSlideshowErrorMessage();
+				displayMessage(
+					window.wp_slideshow_admin.text_settings_not_updated,
+					'error'
+				);
 			},
 		} );
 	}
 
-	window.WPSlideshowWarningMessage = function () {
-		$( '#success-message' ).remove();
-		$( '#warning-message' ).remove();
-		$( '#error-message' ).remove();
-		$( '#wp-slideshow-submit' ).after(
-			`
-        <div id="warning-message" class="notice notice-warning is-dismissible">
-            <p>` +
-				window.wp_slideshow_admin.text_update_settings_warning +
-				`</p>
-            <button type="button" class="notice-dismiss">
-                <span class="screen-reader-text">` +
-				window.wp_slideshow_admin.text_dismiss_notice +
-				`</span>
-            </button> 
-        </div>`
-		);
-	};
-
-	window.WPSlideshowSuccessMessage = function () {
-		$( '#success-message' ).remove();
-		$( '#warning-message' ).remove();
-		$( '#error-message' ).remove();
-		$( '#wp-slideshow-submit' ).after(
-			`
-        <div id="success-message" class="notice notice-success is-dismissible">
-            <p>` +
-				window.wp_slideshow_admin.text_settings_updated +
-				`</p>
-            <button type="button" class="notice-dismiss">
-                <span class="screen-reader-text">` +
-				window.wp_slideshow_admin.text_dismiss_notice +
-				`</span>
-            </button>
-        </div>`
-		);
-	};
-
-	window.WPSlideshowErrorMessage = function () {
-		$( '#success-message' ).remove();
-		$( '#warning-message' ).remove();
-		$( '#error-message' ).remove();
-		$( '#wp-slideshow-submit' ).after(
-			`
-        <div id="error-message" class="error is-dismissible">
-            <p>` +
-				window.wp_slideshow_admin.text_settings_cannot_update +
-				`</p>
-            <button type="button" class="notice-dismiss">
-                <span class="screen-reader-text">` +
-				window.wp_slideshow_admin.text_dismiss_notice +
-				`</span>
-            </button>
-        </div>`
-		);
-	};
+	function displayMessage( text, type = 'warning' ) {
+		$( '#wp-slideshow-message' ).remove();
+		$( '#wp-slideshow-submit' ).after( `
+		<div id="wp-slideshow-message" class="notice notice-${ type } is-dismissible">
+			<p>${ text }</p>
+			<button type="button" class="notice-dismiss">
+				<span class="screen-reader-text">${ window.wp_slideshow_admin.text_dismiss_notice }</span>
+			</button> 
+		</div>` );
+	}
 } );
