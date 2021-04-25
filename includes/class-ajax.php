@@ -41,7 +41,7 @@ class Ajax {
 			wp_send_json_error(
 				array(
 					'message' => __( 'You have no access to update the settings', 'wp-slideshow' ),
-					'success' => false,
+					'type'    => 'error',
 				)
 			);
 		}
@@ -52,13 +52,13 @@ class Ajax {
 			$new_images = json_decode( sanitize_text_field( wp_unslash( $_POST['images'] ) ), true );
 		}
 
-		if ( $this->is_validated( $new_images ) ) {
+		if ( wp_slideshow_is_valid_images( $new_images ) ) {
 			update_option( WP_SLIDESHOW_OPTION_IMAGES, $new_images );
 
 			$response = apply_filters(
 				'wp_slideshow_update_slider_ajax_response',
 				array(
-					'success' => true,
+					'type'    => 'success',
 					'message' => __( 'Slider images have been updated', 'wp-slideshow' ),
 				)
 			);
@@ -68,26 +68,9 @@ class Ajax {
 
 		wp_send_json_error(
 			array(
-				'message' => __( 'Settings cannot be updated', 'wp-slideshow' ),
-				'success' => false,
+				'message' => __( 'Error: settings cannot be updated. Only images are allowed for the slider, so please remove other file types or try again later.', 'wp-slideshow' ),
+				'type'    => 'error',
 			)
 		);
-	}
-
-	/**
-	 * Validate array items
-	 *
-	 * @param array $items array of image ids.
-	 *
-	 * @since 1.0.0
-	 */
-	private function is_validated( $items ) {
-		foreach ( $items as $item ) {
-			if ( ! intval( $item ) ) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 }

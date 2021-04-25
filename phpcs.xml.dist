@@ -1,22 +1,27 @@
 <?xml version="1.0"?>
-<ruleset name="Custom ruleset">
-    <description>WP Slideshow Plugin Ruleset</description>
-    <!-- Check for cross-version support for PHP 5.6 and higher. -->
-    <config name="testVersion" value="5.6-"/>
-    <!-- Exclude the directories. -->
-    <exclude-pattern>/vendor/*</exclude-pattern>
-    <exclude-pattern>/node_modules/*</exclude-pattern>
-    <exclude-pattern>\.idea/*</exclude-pattern>
-    <exclude-pattern>assets/*</exclude-pattern>
-    <!-- Check for WordPress coding standard -->
-    <rule ref="WordPress">
-        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-    </rule>
-    <!-- Run against the PHPCompatibilityWP ruleset -->
-    <rule ref="PHPCompatibilityWP"></rule>
-    <!-- Check all PHP files in directory tree by default. -->
-    <arg name="extensions" value="php"/>
-    <!-- Check up to 100 files simultaneously. -->
-    <arg name="parallel" value="100"/>
-    <arg value="p"/>
+<ruleset name="WordPress Coding Standards based custom ruleset for this plugin">
+	<description>WP Slideshow Plugin Ruleset</description>
+	<!-- Check for cross-version support for PHP 5.6 and higher. -->
+	<config name="testVersion" value="5.6-"/>
+	<!-- What to scan -->
+	<file>.</file>
+	<!-- Exclude the directories. -->
+	<exclude-pattern>/tests/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>\.idea/*</exclude-pattern>
+	<exclude-pattern>assets/*</exclude-pattern>
+	<!-- Check for WordPress coding standard -->
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	</rule>
+	<config name="minimum_supported_wp_version" value="5.2"/>
+	<!-- Run against the PHPCompatibilityWP ruleset -->
+	<rule ref="PHPCompatibilityWP"></rule>
+	<arg name="colors"/>
+	<!-- Check all PHP files in directory tree by default. -->
+	<arg name="extensions" value="php"/>
+	<!-- Check up to 100 files simultaneously. -->
+	<arg name="parallel" value="100"/>
+	<arg value="p"/>
 </ruleset>

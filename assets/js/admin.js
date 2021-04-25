@@ -105,11 +105,8 @@ jQuery( document ).ready( function ( $ ) {
 				nonce: window.wp_slideshow_admin.nonce,
 				images: JSON.stringify( getUploadedIds() ),
 			},
-			success() {
-				displayMessage(
-					window.wp_slideshow_admin.text_settings_updated,
-					'success'
-				);
+			success( response ) {
+				displayMessage( response.data.message, response.data.type );
 			},
 			error() {
 				displayMessage(
