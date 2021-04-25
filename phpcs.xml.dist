@@ -11,6 +11,8 @@
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>\.idea/*</exclude-pattern>
 	<exclude-pattern>assets/*</exclude-pattern>
+	<exclude-pattern>RoboFile.php</exclude-pattern>
+	<exclude-pattern>index.php</exclude-pattern>
 	<!-- Check for WordPress coding standard -->
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>

@@ -12,15 +12,18 @@
     "scripts": {
         "run:cs": "./vendor/bin/phpcs -p --standard=phpcs.xml.dist .",
         "run:phpunit": "./vendor/bin/phpunit",
-        "fix:cbf": "./vendor/bin/phpcbf -p --standard=phpcs.xml.dist ."
+        "fix:cbf": "./vendor/bin/phpcbf -p --standard=phpcs.xml.dist .",
+        "release": "./vendor/bin/robo release --version"
     },
-    "require": {},
     "require-dev": {
         "php": ">=5.6",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
         "phpcompatibility/phpcompatibility-wp": "*",
         "wp-coding-standards/wpcs": "*",
         "wp-cli/wp-cli-bundle": "^2.4",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^7.5.20",
+        "consolidation/robo": "^2",
+        "patchwork/jsqueeze": "^2.0",
+        "natxet/cssmin": "^3.0"
     }
 }
