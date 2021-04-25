@@ -89,36 +89,24 @@ class Assets {
 	}
 
 	/**
-	 * Get directory prefix
-	 *
-	 * @return string
-	 */
-	public function get_prefix_directory() {
-		$prefix_directory = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : 'min/';
-
-		return $prefix_directory;
-	}
-
-	/**
 	 * Get all registered scripts
 	 *
 	 * @since 1.0.0
 	 * @return array
 	 */
 	public function get_scripts() {
-		$prefix           = $this->get_prefix();
-		$prefix_directory = $this->get_prefix_directory();
+		$prefix = $this->get_prefix();
 
 		$scripts = array(
 			'wp-slideshow-admin'    => array(
-				'src'       => WP_SLIDESHOW_ASSETS . '/js/' . $prefix_directory . 'admin' . $prefix . '.js',
-				'version'   => filemtime( WP_SLIDESHOW_PATH . '/assets/js/' . $prefix_directory . 'admin' . $prefix . '.js' ),
+				'src'       => WP_SLIDESHOW_ASSETS . '/js/admin' . $prefix . '.js',
+				'version'   => filemtime( WP_SLIDESHOW_PATH . '/assets/js/admin' . $prefix . '.js' ),
 				'deps'      => array( 'jquery' ),
 				'in_footer' => true,
 			),
 			'wp-slideshow-frontend' => array(
-				'src'       => WP_SLIDESHOW_ASSETS . '/js/' . $prefix_directory . 'frontend' . $prefix . '.js',
-				'version'   => filemtime( WP_SLIDESHOW_PATH . '/assets/js/' . $prefix_directory . 'frontend' . $prefix . '.js' ),
+				'src'       => WP_SLIDESHOW_ASSETS . '/js/frontend' . $prefix . '.js',
+				'version'   => filemtime( WP_SLIDESHOW_PATH . '/assets/js/frontend' . $prefix . '.js' ),
 				'deps'      => array( 'jquery' ),
 				'in_footer' => true,
 			),
@@ -134,15 +122,14 @@ class Assets {
 	 * @return array
 	 */
 	public function get_styles() {
-		$prefix           = $this->get_prefix();
-		$prefix_directory = $this->get_prefix_directory();
+		$prefix = $this->get_prefix();
 
 		$styles = array(
 			'wp-slideshow-admin'    => array(
-				'src' => WP_SLIDESHOW_ASSETS . '/css/' . $prefix_directory . 'admin' . $prefix . '.css',
+				'src' => WP_SLIDESHOW_ASSETS . '/css/admin' . $prefix . '.css',
 			),
 			'wp-slideshow-frontend' => array(
-				'src' => WP_SLIDESHOW_ASSETS . '/css/' . $prefix_directory . 'frontend' . $prefix . '.css',
+				'src' => WP_SLIDESHOW_ASSETS . '/css/frontend' . $prefix . '.css',
 			),
 		);
 
