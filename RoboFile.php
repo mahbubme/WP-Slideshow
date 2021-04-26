@@ -10,6 +10,7 @@
 
 // Load the autoload file for composer (so we can access RoboCI).
 require_once 'vendor/autoload.php';
+use Elephfront\RoboJsMinify\Task\Loader\LoadJsMinifyTasksTrait;
 
 /**
  * WP Slideshow Robo Runner Class
@@ -20,6 +21,8 @@ require_once 'vendor/autoload.php';
  * @access public
  */
 class RoboFile extends \Robo\Tasks {
+
+	use LoadJsMinifyTasksTrait;
 
 	/**
 	 * Release function
@@ -71,7 +74,7 @@ class RoboFile extends \Robo\Tasks {
 
 		foreach ( glob( './assets/js/*.js' ) as $filename ) {
 			$new_filename = str_replace( '.js', '.min.js', $filename );
-			$this->taskMinify( $filename )->to( $new_filename )->run();
+			$this->taskJsMinify( array( $filename => $new_filename ) )->run();
 		}
 	}
 

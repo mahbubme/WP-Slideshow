@@ -23,6 +23,7 @@
         "phpunit/phpunit": "^7.5.20",
         "consolidation/robo": "^2",
         "patchwork/jsqueeze": "^2.0",
-        "natxet/cssmin": "^3.0"
+        "natxet/cssmin": "^3.0",
+        "elephfront/robo-js-minify": "^1.0"
     }
 }

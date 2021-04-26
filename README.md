@@ -1,9 +1,9 @@
 # WordPress Slideshow Plugin - rtCamp Assignment 
 
 A WordPress plugin for rtCamp rtCamp assignment. 😎 <br />
-[![Build Status](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/?branch=master)
+[![Build_Status](https://travis-ci.com/mahbubme/WP-Slideshow.svg?branch=master)](https://travis-ci.com/mahbubme/WP-Slideshow)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://php.net/)
 [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/mahbubme/WP-Slideshow/blob/master/license.txt)
 
