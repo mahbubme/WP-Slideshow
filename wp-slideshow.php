@@ -10,7 +10,7 @@
  * Requires at least:   5.2
  * Requires PHP:        5.6.20
  *
- * License:             GPL v3
+ * License:             GPL-3.0-only or GPL-3.0-or-later
  *
  * Text Domain:         wp-slideshow
  * Domain Path:         /languages
