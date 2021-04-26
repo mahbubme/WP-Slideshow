@@ -1,6 +1,6 @@
 # WordPress Slideshow Plugin - rtCamp Assignment 
 
-A WordPress plugin for rtCamp rtCamp assignment. 😎 <br />
+A WordPress plugin for rtCamp assignment. 😎 <br />
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/build-status/master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/mahbubme/WP-Slideshow/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Build_Status](https://travis-ci.com/mahbubme/WP-Slideshow.svg?branch=master)](https://travis-ci.com/mahbubme/WP-Slideshow)
