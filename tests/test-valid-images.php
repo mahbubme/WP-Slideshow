@@ -21,6 +21,7 @@ class TestValidImages extends WP_UnitTestCase {
 	 * Attachment ids
 	 *
 	 * @since 1.0.0
+	 * @var array
 	 */
 	private $attachment_ids;
 
@@ -30,7 +31,7 @@ class TestValidImages extends WP_UnitTestCase {
 	 * @since 1.0.0
 	 */
 	public function setUp() {
-		// upload fake attachments and store the attachment ids in a array
+		// upload fake attachments and store the attachment ids in a array.
 		$attachments = array();
 
 		$post_image = $this->factory->post->create_and_get();

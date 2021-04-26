@@ -65,7 +65,7 @@ Please follow the development guidelines to extend the plugin functionalities or
 
 - Initialize the testing environment
 
-Please make sure that you have [mysql](https://dev.mysql.com/downloads/mysql/) running in your computer. Replace `<username>` `<password>` with your mysql username and password. If you don't have password setup then leave the `<password>` with `''` syntax. 
+Please make sure that you have [mysql](https://dev.mysql.com/downloads/mysql/) running in your computer. Replace `<username>` `<password>` with your mysql username and password. If you don't have password setup then leave the `<password>` with `''` syntax. Also replace `tests-wp-slideshow` value with your own database name. 
 
 `bash bin/install-wp-tests.sh tests-wp-slideshow <username> <password> localhost latest`
 

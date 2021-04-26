@@ -25,7 +25,7 @@ class TestUsersAccessCapability extends WP_UnitTestCase {
 	 */
 	public function setUp() {
 
-		// make fake users
+		// make fake users.
 		$this->admin       = new WP_User( $this->factory->user->create( array( 'role' => 'administrator' ) ) );
 		$this->editor      = new WP_User( $this->factory->user->create( array( 'role' => 'editor' ) ) );
 		$this->author      = new WP_User( $this->factory->user->create( array( 'role' => 'author' ) ) );
@@ -40,18 +40,18 @@ class TestUsersAccessCapability extends WP_UnitTestCase {
 	 * @since 1.0.0
 	 */
 	public function testCapability() {
-		// make sure user has the capability to access the plugin options
-		$userEditor      = get_user_by( 'id', $this->editor->ID );
-		$userAdmin       = get_user_by( 'id', $this->admin->ID );
-		$userAuthor      = get_user_by( 'id', $this->author->ID );
-		$userContributor = get_user_by( 'id', $this->contributor->ID );
-		$userSubscriber  = get_user_by( 'id', $this->subscriber->ID );
+		// make sure user has the capability to access the plugin options.
+		$user_admin       = get_user_by( 'id', $this->admin->ID );
+		$user_editor      = get_user_by( 'id', $this->editor->ID );
+		$user_author      = get_user_by( 'id', $this->author->ID );
+		$user_contributor = get_user_by( 'id', $this->contributor->ID );
+		$user_subscriber  = get_user_by( 'id', $this->subscriber->ID );
 
-		$this->assertTrue( user_can( $userAdmin, wp_slideshow_access_capability() ), 'The admin does not have the access capability, but it should be.' );
-		$this->assertFalse( user_can( $userEditor, wp_slideshow_access_capability() ), 'The editor has the access capability, but it should not be.' );
-		$this->assertFalse( user_can( $userAuthor, wp_slideshow_access_capability() ), 'The author has the access capability, but it should not be.' );
-		$this->assertFalse( user_can( $userContributor, wp_slideshow_access_capability() ), 'The contributor has the access capability, but it should not be.' );
-		$this->assertFalse( user_can( $userSubscriber, wp_slideshow_access_capability() ), 'The subscriber has the access capability, but it should not be.' );
+		$this->assertTrue( user_can( $user_admin, wp_slideshow_access_capability() ), 'The admin does not have the access capability, but it should be.' );
+		$this->assertFalse( user_can( $user_editor, wp_slideshow_access_capability() ), 'The editor has the access capability, but it should not be.' );
+		$this->assertFalse( user_can( $user_author, wp_slideshow_access_capability() ), 'The author has the access capability, but it should not be.' );
+		$this->assertFalse( user_can( $user_contributor, wp_slideshow_access_capability() ), 'The contributor has the access capability, but it should not be.' );
+		$this->assertFalse( user_can( $user_subscriber, wp_slideshow_access_capability() ), 'The subscriber has the access capability, but it should not be.' );
 	}
 
 	/**
