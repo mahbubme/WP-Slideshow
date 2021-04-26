@@ -51,9 +51,7 @@ jQuery( document ).ready( function ( $ ) {
 	$( function () {
 		$( '#sortable' ).sortable( {
 			update() {
-				displayMessage(
-					window.wp_slideshow_admin.text_update_settings
-				);
+				displayMessage( window.wp_slideshow_admin.text_update_settings );
 			},
 		} );
 
@@ -109,10 +107,7 @@ jQuery( document ).ready( function ( $ ) {
 				displayMessage( response.data.message, response.data.type );
 			},
 			error() {
-				displayMessage(
-					window.wp_slideshow_admin.text_settings_not_updated,
-					'error'
-				);
+				displayMessage( window.wp_slideshow_admin.text_settings_not_updated, 'error' );
 			},
 		} );
 	}

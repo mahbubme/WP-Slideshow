@@ -1,7 +1,15 @@
 {
-  "ignorePatterns": ["*.min.js"],
-  "extends": [ "plugin:@wordpress/eslint-plugin/recommended"],
+  "env": {
+    "es6": true
+  },
+  "ignorePatterns": [
+    "*.min.js"
+  ],
+  "extends": "eslint:recommended",
   "globals": {
+    "wp": true,
+    "document": true,
+    "window": true,
     "jQuery": true
   }
 }
