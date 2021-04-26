@@ -19,7 +19,9 @@
   "homepage": "https://github.com/mahbubme/WP-Slideshow#readme",
   "devDependencies": {
     "@wordpress/eslint-plugin": "^9.0.3",
-    "@wordpress/scripts": "^14.1.1"
+    "@wordpress/scripts": "^14.1.1",
+    "prettier": "^1.13.0",
+    "typescript": "^2.8.4"
   },
   "dependencies": {}
 }
