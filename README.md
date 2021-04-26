@@ -77,9 +77,9 @@ Run PHPUnit. You can add more tests to the `tests` directory as well.
 
 - Plugin build process
 
-Run the following command, commmit the changes and push to [Github](https://github.com/mahbubme/WP-Slideshow/). Replace `--version` with any of the value(e.g: `v2.4.0`)
+Run the following command, commmit the changes and push to [Github](https://github.com/mahbubme/WP-Slideshow/). Replace `<version>` with any of the value(e.g: `v2.4.0`)
 
-`composer release --version`
+`./vendor/bin/robo release <version>`
 
 Note: when you make a code change and push to GitHub, a build will be triggered on Travis CI.
 

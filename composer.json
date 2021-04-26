@@ -12,8 +12,7 @@
     "scripts": {
         "run:cs": "./vendor/bin/phpcs -p --standard=phpcs.xml.dist .",
         "run:phpunit": "./vendor/bin/phpunit",
-        "fix:cbf": "./vendor/bin/phpcbf -p --standard=phpcs.xml.dist .",
-        "release": "./vendor/bin/robo release --version"
+        "fix:cbf": "./vendor/bin/phpcbf -p --standard=phpcs.xml.dist ."
     },
     "require-dev": {
         "php": ">=5.6",
