@@ -25,5 +25,10 @@
         "patchwork/jsqueeze": "^2.0",
         "natxet/cssmin": "^3.0",
         "elephfront/robo-js-minify": "^1.0"
+    },
+    "config": {
+        "platform": {
+            "php": "7.3.18"
+        }
     }
 }
