@@ -64,7 +64,7 @@ class Slider {
 			foreach ( $slider_images as $image_id ) {
 				$image_url = wp_get_attachment_url( $image_id );
 
-				$output .= '<li class="wp-slideshow-slide"><img src="' . wp_kses_post( $image_url ) . '" ></li>';
+				$output .= '<li class="wp-slideshow-slide"><img src="' . esc_url( $image_url ) . '" ></li>';
 			}
 		}
 

@@ -21,7 +21,7 @@
 			$thumb_url = wp_get_attachment_thumb_url( $image );
 
 			$output .= '<li class="ui-state-default" data-id="' . wp_kses_post( $image ) . '">';
-			$output .= '<img src="' . wp_kses_post( $thumb_url ) . '" >';
+			$output .= '<img src="' . esc_url( $thumb_url ) . '" >';
 			$output .= '<div class="wp-slideshow-remove-image" data-id="' . wp_kses_post( $image ) . '"><span class="dashicons dashicons-no-alt"></span></div>';
 			$output .= '</li>';
 		}
